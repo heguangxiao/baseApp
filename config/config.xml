@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>    
+    <category name="appconfig">
+		<property name="LB_NODE" value="NODE_DEV"/>
+		<property name="maxThread" value="200"/>
+		<property name="MASTER" value="0"/>
+		<property name="SV_ALERT" value="0"/>
+		<property name="NODE_DEV" value="0"/>
+		<property name="BUID_CDR" value="0"/>
+		<property name="PATH_CACHE_LOG_REQUEST_API" value="../log/ZONESMS_LOG_INCOME"/>
+		<property name="PATH_CACHE_LOG_REQUEST_CAMPAGIN" value="../log/ZONESMS_LOG_INCOME_ADS"/>
+		<property name="PATH_CACHE_LOG_REQUEST_SIPTRUNK" value="../log/ZONESMS_LOG_SUBMIT"/>
+		<property name="PATH_CACHE_LOG_REQUEST_SIPAGENT" value="../log/ZONESMS_LOG_SUBMIT"/>
+		<property name="AST_DIR" value="C:\\\\Working\\\\"/>
+		<property name="TPS_LOG" value="50"/>
+    </category>
+    <category name="EMAIL">
+        <property name="MAIL_USER" value="abc@abc.abc" />
+        <property name="MAIL_PASS" value="kd#ks89kjdAjd7" />
+        <property name="MAIL_HOST" value="abc.abc.abc" />
+        <property name="MAIL_DEBUG" value="false" />
+    </category>
+    <category name="webService">
+        <property name="contextPath" value="/service" />
+        <property name="port" value="9913" />
+    </category>
+    
+    
+    <category name="listServerAsterisk">
+        <property name="NAME_SERVER" value="SV1" />
+    </category>
+    <category name="SV1">
+        <property name="REMOTE_IP" value="admin" />
+        <property name="REMOTE_PORT" value="#HTC@2016*" />
+        <property name="REMOTE_USER" value="118.70.109.34" />
+        <property name="REMOTE_PASS" value="58201" />
+        <property name="REMOTE_APP" value="0,1,2,3,4" />
+    </category>
+</properties>
+
