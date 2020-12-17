@@ -39,7 +39,7 @@ public class ReloadAble extends Thread {
         Tool.out("|===> " + this.getName() + " is started...");
         while(AppStart.isRuning && !stop){
             try {
-                Thread.sleep(120*1000);
+                Thread.sleep(60*1000);
                 Tool.out("|===> Resource is Reloading...");
                 TrunkIn.reload();
                 TrunkOut.reload();
@@ -47,7 +47,6 @@ public class ReloadAble extends Thread {
                 ClientAccount.reload();
                 WriteConfigAndReloadAsterisk.WriteAndReload();                
             } catch (InterruptedException ex) {
-                ex.printStackTrace();
                 logger.error(Tool.getLogMessage(ex));
             }
         }

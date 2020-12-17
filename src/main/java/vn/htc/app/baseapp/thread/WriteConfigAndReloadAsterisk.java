@@ -31,7 +31,7 @@ public class WriteConfigAndReloadAsterisk {
     public static final String FILE_SIP_TRUNK_OUT = "sip_trunk_out.conf";
     public static final String FILE_SIP_TRUNK_IN = "sip_trunk_in.conf";
     public static final String FILE_SIP_AGENTS = "sip_agents.conf";
-    public static final String FILE_SIP_DEVICE = "sip_device.conf";
+    public static final String FILE_SIP_AGENT_SIM_DEVICE = "sip_agent_sim_device.conf";
 
     private boolean stop = false;
 
@@ -43,11 +43,12 @@ public class WriteConfigAndReloadAsterisk {
     }
 
     public static void WriteAndReload() {
-        writeTrunkIn();
-        writeTrunkOut();
-        writeAgentSip();
+//        writeTrunkIn();
+//        writeTrunkOut();
+//        writeAgentSip();
+        writeAgentSimDevice();
         try {
-            Thread.sleep(5 * 1000);
+            Thread.sleep(60 * 1000);
         } catch (InterruptedException ex) {
             java.util.logging.Logger.getLogger(WriteConfigAndReloadAsterisk.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -112,6 +113,52 @@ public class WriteConfigAndReloadAsterisk {
                 + "callcounter=yes\n"
                 + "faxdetect=no";
         return result;
+    }
+
+    private static String builtAgentSimDeviceCfg(Agent agent) {
+        String result = "agentname=" + agent.getAgentname() + "\n"
+                + "agentnumber=" + agent.getAgentnumber() + "\n"
+                + "agentpass=" + agent.getAgentpass()+ "\n"
+                + "simname=" + agent.getSimname()+ "\n"
+                + "simcode=" + agent.getSimcode()+ "\n"
+                + "simdescription=" + agent.getSimdescription()+ "\n"
+                + "simoper=" + agent.getSimoper()+ "\n"
+                + "simlocation=" + agent.getSimlocation()+ "\n"
+                + "devicename=" + agent.getDevicename()+ "\n"
+                + "devicecode=" + agent.getDevicecode()+ "\n"
+                + "devicedescription=" + agent.getDevicedescription()+ "\n"
+                + "deviceport=" + agent.getDeviceport()+ "\n"
+                + "deviceip=" + agent.getDeviceip()+ "\n"
+                + "";
+        return result;
+    }
+
+    private static void writeAgentSimDevice() {
+
+        try {
+            // Create new file
+            String path = AST_DIR + FILE_SIP_AGENT_SIM_DEVICE;
+            File file = new File(path);
+            // If file doesn't exists, then create it
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            // Write in file
+            Collection<Agent> values = Agent.CACHE.values();
+            if (values != null) {
+                for (Agent one : values) {
+                    String oneTrunkText = builtAgentSimDeviceCfg(one) + "\n\n\n";
+                    bw.write(oneTrunkText);
+                }
+            }
+            // Close connection
+            bw.close();
+            System.out.println("Write TrunkIn successfull");
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     private static void writeTrunkIn() {

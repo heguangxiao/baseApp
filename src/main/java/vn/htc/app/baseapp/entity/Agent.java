@@ -46,7 +46,23 @@ public class Agent {
         Connection conn = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM AGENT WHERE 1 = 1";
+        String sql = "SELECT "
+                + "	a.NAME AS agentname, "
+                + "	a.DESCRIPTION AS agentnumber, "
+                + "	a.PASSWORD AS agentpass, "
+                + "	s.NAME AS simname, "
+                + "	s.CODE AS simcode, "
+                + "	s.DESCRIPTION AS simdescription, "
+                + "	s.OPER AS simoper, "
+                + "	s.LOCATION AS simlocation, "
+                + "	d.NAME AS devicename, "
+                + "	d.CODE AS devicecode, "
+                + "	d.DESCRIPTION AS devicedescription, "
+                + "	d.IP AS deviceip, "
+                + "	d.PORT AS deviceport "
+                + "     FROM agent a "
+                + "	LEFT JOIN sim s ON a.SIM_ID = s.ID "
+                + "	LEFT JOIN device d ON s.LOCATION LIKE CONCAT( d.CODE, '%' );";
 
         try {
             conn = DBPool.getConnection();
@@ -55,9 +71,19 @@ public class Agent {
             rs = pstm.executeQuery();
             while (rs.next()) {
                 Agent acc = new Agent();
-                acc.setAgentname(rs.getString("NAME"));
-                acc.setAgentnumber(rs.getString("DESCRIPTION"));
-                acc.setAgentpass(rs.getString("PASSWORD"));
+                acc.setAgentname(rs.getString("agentname"));
+                acc.setAgentnumber(rs.getString("agentnumber"));
+                acc.setAgentpass(rs.getString("agentpass"));
+                acc.setSimname(rs.getString("simname"));
+                acc.setSimcode(rs.getString("simcode"));
+                acc.setSimdescription(rs.getString("simdescription"));
+                acc.setSimoper(rs.getString("simoper"));
+                acc.setSimlocation(rs.getString("simlocation"));
+                acc.setDevicename(rs.getString("devicename"));
+                acc.setDevicecode(rs.getString("devicecode"));
+                acc.setDevicedescription(rs.getString("devicedescription"));
+                acc.setDeviceip(rs.getString("deviceip"));
+                acc.setDeviceport(rs.getString("deviceport"));
                 all.add(acc);
             }
         } catch (SQLException ex) {
@@ -71,6 +97,96 @@ public class Agent {
     String agentname;
     String agentnumber;
     String agentpass;
+    String simname;
+    String simcode;
+    String simdescription;
+    String simoper;
+    String simlocation;
+    String devicename;
+    String devicecode;
+    String devicedescription;
+    String deviceip;
+    String deviceport;
+
+    public String getSimname() {
+        return simname;
+    }
+
+    public void setSimname(String simname) {
+        this.simname = simname;
+    }
+
+    public String getSimcode() {
+        return simcode;
+    }
+
+    public void setSimcode(String simcode) {
+        this.simcode = simcode;
+    }
+
+    public String getSimdescription() {
+        return simdescription;
+    }
+
+    public void setSimdescription(String simdescription) {
+        this.simdescription = simdescription;
+    }
+
+    public String getSimoper() {
+        return simoper;
+    }
+
+    public void setSimoper(String simoper) {
+        this.simoper = simoper;
+    }
+
+    public String getSimlocation() {
+        return simlocation;
+    }
+
+    public void setSimlocation(String simlocation) {
+        this.simlocation = simlocation;
+    }
+
+    public String getDevicename() {
+        return devicename;
+    }
+
+    public void setDevicename(String devicename) {
+        this.devicename = devicename;
+    }
+
+    public String getDevicecode() {
+        return devicecode;
+    }
+
+    public void setDevicecode(String devicecode) {
+        this.devicecode = devicecode;
+    }
+
+    public String getDevicedescription() {
+        return devicedescription;
+    }
+
+    public void setDevicedescription(String devicedescription) {
+        this.devicedescription = devicedescription;
+    }
+
+    public String getDeviceip() {
+        return deviceip;
+    }
+
+    public void setDeviceip(String deviceip) {
+        this.deviceip = deviceip;
+    }
+
+    public String getDeviceport() {
+        return deviceport;
+    }
+
+    public void setDeviceport(String deviceport) {
+        this.deviceport = deviceport;
+    }
 
     public String getAgentname() {
         return agentname;
